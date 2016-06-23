@@ -8,7 +8,7 @@ get_all=$PROJ_BIN/get_all
 projects=( $($get_all) ) || die "could not get project list"
 for project in "${projects[@]}"; do
     symlink=$PROJ_BASE/all/$project/home
-    [[ -h $symlink ]] || die "project symlink not found: $symlink"
+    [[ -h $symlink ]] || continue
 
     project_home=$(readlink $symlink)
     match=$(echo $PWD|grep -o "$project_home*")

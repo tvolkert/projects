@@ -6,10 +6,14 @@ current=$($PROJ_BIN/get_current) || die "could not get current project"
 implied=$($PROJ_BIN/get_implied) || die "could not get implied project"
 invoked=$($PROJ_BIN/get_invoked $PPID 2> /dev/null) || invoked=$current
 
-if [[ -n "$implied" && "$implied" != "$current" && "$invoked" == "$current" ]]; then
+if [[ -z "$current" ]]; then
+    echo -e "\x1B[93mCurrent project is unset\x1B[0m"
+    $PROJ_BIN/set_current $invoked
+    exit 2
+elif [[ -n "$implied" && "$implied" != "$current" && "$invoked" == "$current" ]]; then
     echo -e "\x1B[93mCurrent project is '$current', but implied project is '$implied'\x1B[0m"
     $PROJ_BIN/set_current $implied
-    exit 2
+    exit 3
 else
     echo -e "\x1B[92mCurrent project is '$current'\x1B[0m"
 fi
