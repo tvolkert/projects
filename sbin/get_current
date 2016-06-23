@@ -8,5 +8,5 @@ if [[ -n "$PROJ_CURRENT" ]]; then
 fi
 
 symlink=$PROJ_BASE/latest
-[[ -h $symlink ]] || die "current project file not found: $symlink"
-basename $(readlink $symlink)
+[[ -h $symlink ]] && basename $(readlink $symlink)
+exit 0
