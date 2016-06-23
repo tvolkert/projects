@@ -6,9 +6,9 @@ projects=( $($PROJ_BASE/sbin/get_all) ) || die "could not list projects"
 current=$($PROJ_BASE/sbin/get_current) || die "could not get current project"
 [[ "${#projects[@]}" -gt 0 ]] || die "no projects have been configured"
 
-echo "Projects:"
+echo
 for project in "${projects[@]}"; do
-    printf " - "
+    printf "  "
     if [[ "$project" == "$current" ]]; then
         printf "\x1B[92m%s\x1B[0m" $project
     else
