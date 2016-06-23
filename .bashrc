@@ -6,6 +6,25 @@ __proj_die() {
     return 1
 }
 
+__proj_set_path() {
+    local project_path="$PROJ_BASE/all/$1/bin"
+
+    if [[ -n "$PATH" ]]; then
+        local old_path=$PATH:; PATH=
+        while [[ -n "$old_path" ]]; do
+            local x=${old_path%%:*}
+            case $x in
+                "$PROJ_BASE"*) ;;
+                *) PATH=$PATH:$x;;
+            esac
+            old_path=${old_path#*:}
+        done
+        PATH="${project_path}${PATH}"
+    else
+        export PATH="$project_path"
+    fi
+}
+
 proj() {
     if [ $# -gt 1 ]; then
         read -r -d '' usage << EOM
@@ -24,7 +43,7 @@ EOM
     elif [[ $# -eq 1 ]]; then
         $PROJ_BASE/sbin/set_current $1 || return 1
         export PROJ_CURRENT=$1
-        export PATH="$PROJ_BASE/all/$PROJ_CURRENT/bin:$PATH"
+        __proj_set_path $PROJ_CURRENT
     fi
 }
 
@@ -38,4 +57,4 @@ cdp() {
 
 export PROJ_BASE=$(cd $(dirname ${BASH_SOURCE[0]}) && pwd)
 export PROJ_CURRENT=$($PROJ_BASE/sbin/get_current) || __proj_die "could not get current project"
-export PATH="$PROJ_BASE/all/$PROJ_CURRENT/bin:$PATH"
+__proj_set_path $PROJ_CURRENT
