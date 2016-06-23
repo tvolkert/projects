@@ -1,0 +1,12 @@
+#!/bin/bash
+
+. $PROJ_BASE/etc/defs.sh || exit 1
+
+if [[ -n "$PROJ_CURRENT" ]]; then
+    echo $PROJ_CURRENT
+    exit 0
+fi
+
+symlink=$PROJ_BASE/latest
+[[ -h $symlink ]] || die "current project file not found: $symlink"
+basename $(readlink $symlink)

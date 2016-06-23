@@ -1,0 +1,16 @@
+#!/bin/bash
+
+. $PROJ_BASE/etc/defs.sh || exit 1
+
+ppid="$1"
+[[ -n "$ppid" ]] || ppid=$PPID
+parent_command=( $(ps -o args= $ppid) )
+[[ ${#parent_command[@]} -eq 2 ]] || die "$(basename $0) not invoked from script"
+
+path=$(cd $(dirname $(dirname "${parent_command[1]}")) && pwd)
+[[ "$path" == "$HOME/.projects/bin" ]] && die "invalid ppid"
+dir=$(basename $path)
+[[ -n "$dir" ]] || die "could not determine invoking project"
+
+[[ "$dir" == "latest" ]] && dir=$($PROJ_BIN/get_current)
+echo $dir

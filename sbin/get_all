@@ -1,0 +1,7 @@
+#!/bin/bash
+
+. $PROJ_BASE/etc/defs.sh || exit 1
+
+cd $PROJ_BASE/all
+IFS=$'\r\n' command eval 'projects=($(find . -type d -mindepth 1 -maxdepth 1|cut -d/ -f2))'
+echo ${projects[@]}

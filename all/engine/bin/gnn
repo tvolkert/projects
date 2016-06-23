@@ -1,0 +1,33 @@
+#!/bin/bash
+
+. $PROJ_BASE/etc/init.sh || exit $?
+
+cmd="./sky/tools/gn --goma"
+
+read -p "Unoptimized {y/n} [y]? " unoptimized
+unoptimized=${unoptimized:-y}
+if [ "$unoptimized" == "y" ]; then
+    cmd="$cmd --unoptimized"
+fi
+
+read -p "Runtime mode {debug,profile,release} [debug]: " runtime_mode
+runtime_mode=${runtime_mode:-debug}
+[[ "$runtime_mode" =~ ^(debug|profile|release)$ ]] || die "invalid runtime mode: $runtime_mode"
+cmd="$cmd --runtime-mode $runtime_mode"
+
+read -p "Device {ios,android,host} [ios]? " device
+device=${device:-ios}
+if [ "$device" == "ios" ]; then
+    cmd="$cmd --target-os ios --ios"
+elif [ "$device" == "android" ]; then
+    cmd="$cmd --target-os android --android"
+fi
+
+read -p "Simulator {y/n} [n]? " simulator
+simulator=${simulator:-n}
+if [ "$simulator" == "y" ]; then
+    cmd="$cmd --simulator"
+fi
+
+echo "$cmd"
+eval "$cmd"

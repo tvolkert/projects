@@ -1,0 +1,18 @@
+#!/bin/bash
+
+. $PROJ_BASE/etc/defs.sh || exit 1
+
+get_all=$PROJ_BIN/get_all
+[[ -x $get_all ]] || die "system binary not found: $get_all"
+
+projects=( $($get_all) ) || die "could not get project list"
+for project in "${projects[@]}"; do
+    symlink=$PROJ_BASE/all/$project/home
+    [[ -h $symlink ]] || die "project symlink not found: $symlink"
+
+    project_home=$(readlink $symlink)
+    match=$(echo $PWD|grep -o "$project_home*")
+    if [[ -n "$match" ]]; then
+        echo $project
+    fi
+done

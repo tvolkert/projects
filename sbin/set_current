@@ -1,0 +1,13 @@
+#!/bin/bash
+
+. $PROJ_BASE/etc/defs.sh || exit 1
+
+[[ -n "$1" ]] || die "usage: $(basename $0) <project>"
+cd $PROJ_BASE
+[[ -d "all/$1" ]] || die "invalid project: '$1'"
+
+symlink=latest
+rm -f $symlink
+ln -s all/$1 $symlink
+
+echo -e "\x1B[92mCurrent project set to '$1'\x1B[0m"

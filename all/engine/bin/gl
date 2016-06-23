@@ -1,0 +1,8 @@
+#!/bin/bash
+
+. $PROJ_BASE/etc/init.sh || exit $?
+
+git pull upstream master &&
+    git clean -fdx &&
+    gclient sync &&
+    ./tools/android/download_android_tools.py 
