@@ -11,11 +11,11 @@ Tools for managing sets of project-specific shell scripts when working across pr
 ## Usage
 ```
 proj [<project-name>]
+```
 
 With no arguments, `proj` prints the list of valid projects, highlighting the current project.
 
 With a valid project name as the sole argument, `proj` sets the current project.
-```
 
 `proj` comes with one built-in bash function, `cdp` (cd *project*). This will take you to the project home for the current project.
 

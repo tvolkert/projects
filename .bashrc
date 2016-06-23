@@ -9,7 +9,7 @@ __proj_die() {
 proj() {
     if [ $# -gt 1 ]; then
         read -r -d '' usage << EOM
-usage: $(basename $0) [<project-name>]
+usage: proj [<project-name>]
 
 - With no arguments, prints the list of valid
   projects, highlighting the current project.
@@ -17,7 +17,7 @@ usage: $(basename $0) [<project-name>]
 - With a valid project name as the sole argument,
   sets the current project.
 EOM
-        >&2 echo $usage
+        >&2 echo "$usage"
         return 1
     elif [[ $# -eq 0 ]]; then
         $PROJ_BASE/sbin/list
