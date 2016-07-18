@@ -1,0 +1,23 @@
+#!/bin/bash
+
+. $PROJ_BASE/etc/init.sh || exit $?
+
+state_file=$PROJ_BASE/all/$CURRENT/etc/current_code_signing_state
+[[ -f $state_file ]] || die "Unable to determine current code signing state" 1
+
+# Read the code signing bit
+read code_signing < $state_file
+[[ "$code_signing" =~ ^[01]$ ]] || die "Unable to determine current code signing state" 2
+
+# Toggle the code signing bit
+code_signing=$(expr 1 - $code_signing)
+echo $code_signing > $state_file
+
+# Update XCode settings
+cp $PROJ_BASE/all/$CURRENT/etc/SDKSettings.plist.CODE_SIGNING_REQUIRED_$code_signing /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS9.3.sdk/SDKSettings.plist
+
+if [[ $code_signing -eq 1 ]]; then
+    echo -e "XCode code signing turned \x1B[92mON\x1B[0m"
+else
+    echo -e "XCode code signing turned \x1B[91mOFF\x1B[0m"
+fi
