@@ -2,7 +2,11 @@
 
 die() {
     >&2 echo -e "\x1B[31mError: $1\x1B[0m"
-    exit 1
+    if [[ $# -eq 1 ]]; then
+        exit 1
+    else
+        exit $2
+    fi
 }
 
 [[ -n "$PROJ_BASE" ]] || die "project environment not configured"
