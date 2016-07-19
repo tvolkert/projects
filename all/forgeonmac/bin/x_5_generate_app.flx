@@ -1,0 +1,14 @@
+#!/bin/bash
+
+. $PROJ_BASE/etc/defs.sh || exit $?
+[[ $(basename $PWD) == "ios" ]] || die "$(basename $0) must be run from ios dir"
+
+set -ex
+
+cd ..
+flutter --suppress-analytics \
+        build flx \
+        --target=lib/main.dart \
+        --output-file=ios/Flutter/app.flx
+rm -rf build/
+cd -

@@ -1,0 +1,9 @@
+#!/bin/bash
+
+. $PROJ_BASE/etc/defs.sh || exit $?
+[[ $(basename $PWD) == "ios" ]] || die "$(basename $0) must be run from ios dir"
+
+set -ex
+
+export FLUTTER_ROOT=/Users/tvolkert/project/flutter/flutter
+cp -r $FLUTTER_ROOT/bin/cache/artifacts/engine/ios/Flutter.framework Flutter/
