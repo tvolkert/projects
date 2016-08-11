@@ -2,7 +2,7 @@
 
 . $PROJ_BASE/etc/init.sh || exit $?
 
-cmd="./sky/tools/gn --goma"
+cmd="./flutter/tools/gn --goma"
 
 read -p "Unoptimized {y/n} [y]? " unoptimized
 unoptimized=${unoptimized:-y}
