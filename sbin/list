@@ -16,7 +16,7 @@ for project in "${projects[@]}"; do
     fi
     home_symlink=$PROJ_BASE/all/$project/home
     if [[ -h $home_symlink ]]; then
-        printf " --> %s" $(readlink $home_symlink)
+        printf " → %s" $(readlink $home_symlink)
     fi
     printf "\n"
 done
