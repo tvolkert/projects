@@ -6,6 +6,5 @@
 set -ex
 
 ios-deploy \
-    --justlaunch \
     --uninstall \
     --bundle build/Debug-iphoneos/Runner.app/

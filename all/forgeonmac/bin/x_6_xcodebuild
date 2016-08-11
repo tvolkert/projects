@@ -10,8 +10,5 @@ env xcrun xcodebuild clean build \
       ONLY_ACTIVE_ARCH=YES \
       -sdk iphoneos \
       -arch arm64
-      #CODE_SIGNING_ALLOWED=NO \
-      #CODE_SIGNING_REQUIRED=NO \
-      #CODE_SIGNING_IDENTITY=""
       # -sdk iphonesimulator \
       # -arch x86_64

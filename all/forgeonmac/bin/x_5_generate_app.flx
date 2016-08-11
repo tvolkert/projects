@@ -9,6 +9,7 @@ cd ..
 flutter --suppress-analytics \
         build flx \
         --target=lib/main.dart \
-        --output-file=ios/Flutter/app.flx
+        --output-file=ios/Flutter/app.flx \
+        --precompiled
 rm -rf build/
 cd -

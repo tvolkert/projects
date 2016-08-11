@@ -7,7 +7,6 @@ set -ex
 
 cd .. &&
     flutter build ios \
-            --debug \
+            --release \
             --generated-only &&
-#            --local-engine=ios_debug_unopt \
     cd -

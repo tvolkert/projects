@@ -12,10 +12,9 @@ mkdir -p build/aot
     --isolate_snapshot=build/aot/snapshot_aot_isolate \
     --packages=.packages \
     --url_mapping=dart:mojo.internal,/Users/tvolkert/.pub-cache/hosted/pub.dartlang.org/mojo-0.4.25/sdk_ext/internal.dart \
-    --url_mapping=dart:ui,../../bin/cache/pkg/sky_engine/dart_ui/ui.dart \
-    --url_mapping=dart:jni,../../bin/cache/pkg/sky_engine/dart_jni/jni.dart \
-    --url_mapping=dart:vmservice_sky,../../bin/cache/pkg/sky_engine/sdk_ext/dart/runtime/bin/vmservice/vmservice_io.dart \
-    /Users/tvolkert/project/flutter/flutter/bin/cache/artifacts/engine/ios/snapshot.dart \
+    --url_mapping=dart:ui,../../../../../../../flutter/flutter/bin/cache/pkg/sky_engine/dart_ui/ui.dart \
+    --url_mapping=dart:jni,../../../../../../../flutter/flutter/bin/cache/pkg/sky_engine/dart_jni/jni.dart \
+    --url_mapping=dart:vmservice_sky,../../../../../../../flutter/flutter/bin/cache/pkg/sky_engine/sdk_ext/dart/runtime/bin/vmservice/vmservice_io.dart \
     --no-checked \
     --conditional_directives \
     /Users/tvolkert/project/forgeonmac/google3/experimental/users/tvolkert/fom/sample/lib/main.dart

@@ -6,4 +6,4 @@
 set -ex
 
 export FLUTTER_ROOT=/Users/tvolkert/project/flutter/flutter
-cp -r $FLUTTER_ROOT/bin/cache/artifacts/engine/ios/Flutter.framework Flutter/
+cp -r $FLUTTER_ROOT/bin/cache/artifacts/engine/ios-release/Flutter.framework Flutter/
