@@ -20,6 +20,11 @@ popd
 xcrun cc \
       -arch arm64 \
       -miphoneos-version-min=8.0 \
+      -c build/aot/snapshot_assembly.S \
+      -o build/aot/snapshot_assembly.o
+xcrun cc \
+      -arch arm64 \
+      -miphoneos-version-min=8.0 \
       -c build/aot/kDartVmIsolateSnapshotBuffer.c \
       -o build/aot/kDartVmIsolateSnapshotBuffer.o
 xcrun cc \
@@ -36,14 +41,14 @@ export CURRENT_ARCH=arm64
 export EXPANDED_CODE_SIGN_IDENTITY=461536A6B8204B56D1E8C6916507B552CEA7C1FC
 export EXPANDED_CODE_SIGN_IDENTITY_NAME="iPhone Developer: Google Development (3F4Y5873JF)"
 export FLUTTER_APPLICATION_PATH=/Users/tvolkert/project/forgeonmac/google3/experimental/users/tvolkert/fom/sample
-export FLUTTER_BUILD_MODE=debug
-#export FLUTTER_BUILD_MODE=release
-#export FLUTTER_FRAMEWORK_DIR=/Users/tvolkert/project/flutter/flutter/bin/cache/artifacts/engine/ios-release
+#export FLUTTER_BUILD_MODE=debug
+export FLUTTER_BUILD_MODE=release
+export FLUTTER_FRAMEWORK_DIR=/Users/tvolkert/project/flutter/flutter/bin/cache/artifacts/engine/ios-release
 #export FLUTTER_FRAMEWORK_DIR=/Users/tvolkert/project/flutter/flutter/bin/cache/artifacts/engine/ios
-export FLUTTER_FRAMEWORK_DIR=/Users/tvolkert/project/flutter/engine/src/out/ios_debug_unopt \
+#export FLUTTER_FRAMEWORK_DIR=/Users/tvolkert/project/flutter/engine/src/out/ios_debug_unopt \
 export FLUTTER_ROOT=/Users/tvolkert/project/flutter/flutter
 export FLUTTER_TARGET=lib/main.dart
-export LOCAL_ENGINE=/Users/tvolkert/project/flutter/engine/src/out/ios_debug_unopt \
+#export LOCAL_ENGINE=/Users/tvolkert/project/flutter/engine/src/out/ios_debug_unopt \
 export SOURCE_ROOT=/Users/tvolkert/project/forgeonmac/google3/experimental/users/tvolkert/fom/sample/ios
 ##############
 export ACTION=build
@@ -434,7 +439,9 @@ xcrun clang \
       -Xlinker -rpath -Xlinker @loader_path/Frameworks \
       -install_name @rpath/app.dylib \
       -o ios/Flutter/app.dylib \
-      build/aot/kDartVmIsolateSnapshotBuffer.o build/aot/kDartIsolateSnapshotBuffer.o
+      build/aot/kDartVmIsolateSnapshotBuffer.o \
+      build/aot/kDartIsolateSnapshotBuffer.o \
+      build/aot/snapshot_assembly.o
 
 rm -rf build
 
