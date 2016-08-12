@@ -2,4 +2,5 @@
 
 . $PROJ_BASE/etc/init.sh || exit $?
 
+cd ..
 ninja -j1000 -C $1

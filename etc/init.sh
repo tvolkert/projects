@@ -7,4 +7,4 @@ export CURRENT=$($PROJ_BIN/get_current) || die "could not get current project"
 [[ -n "$CURRENT" ]] || die "current project is unset"
 home_symlink=$PROJ_BASE/all/$CURRENT/home
 [[ -h $home_symlink ]] || die "home symlink missing for project: ~$CURRENT/home"
-cd $home_symlink&>/dev/null || die "could not open project home"
+cd $(readlink $home_symlink)&>/dev/null || die "could not open project home"
