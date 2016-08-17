@@ -4,5 +4,7 @@
 
 git pull upstream master &&
     git clean -fdx &&
+    cd .. &&
+    gclient recurse git clean -fdx &&
     gclient sync &&
-    ../tools/android/download_android_tools.py
+    ./tools/android/download_android_tools.py
