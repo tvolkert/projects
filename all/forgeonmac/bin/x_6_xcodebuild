@@ -6,7 +6,7 @@
 set -ex
 
 env xcrun xcodebuild clean build \
-      -configuration Debug \
+      -configuration Release \
       ONLY_ACTIVE_ARCH=YES \
       -sdk iphoneos \
       -arch arm64

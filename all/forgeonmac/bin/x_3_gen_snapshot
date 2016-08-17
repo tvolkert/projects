@@ -7,7 +7,7 @@ set -ex
 
 cd ..
 mkdir -p build/aot
-/Users/tvolkert/projects/flutter/flutter/bin/cache/artifacts/engine/ios-release/gen_snapshot \
+/Users/tvolkert/projects/flutter/flutter/bin/cache/artifacts/engine/ios-profile/gen_snapshot \
     --vm_isolate_snapshot=build/aot/snapshot_aot_vmisolate \
     --isolate_snapshot=build/aot/snapshot_aot_isolate \
     --packages=.packages \
@@ -18,5 +18,7 @@ mkdir -p build/aot
     --embedder_entry_points_manifest=/Users/tvolkert/projects/flutter/flutter/bin/cache/artifacts/engine/ios-release/dart_vm_entry_points.txt \
     --embedder_entry_points_manifest=/Users/tvolkert/projects/flutter/flutter/bin/cache/artifacts/engine/ios-release/dart_io_entries.txt \
     --assembly=build/aot/snapshot_assembly.S \
+    --no-checked \
+    --conditional_directives \
     /Users/tvolkert/projects/forgeonmac/google3/experimental/users/tvolkert/fom/sample/lib/main.dart
 cd -

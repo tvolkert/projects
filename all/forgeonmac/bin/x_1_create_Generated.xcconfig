@@ -7,6 +7,6 @@ set -ex
 
 cd .. &&
     flutter build ios \
-            --release \
+            --profile \
             --generated-only &&
     cd -
