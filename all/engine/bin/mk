@@ -3,4 +3,23 @@
 . $PROJ_BASE/etc/init.sh || exit $?
 
 cd ..
-ninja -j1000 -C $1
+IFS=$'\n' targets=($(find out -maxdepth 1 -mindepth 1 -type d))
+target_count=${#targets[@]}
+
+[[ $target_count -eq 0 ]] && die "No make targets (out/*) found"
+
+if [[ $target_count -eq 1 ]]; then
+    # No need for the user to specify target
+    ninja -j1024 -C ${targets[0]}
+elif [[ $# -eq 0 ]]; then
+    echo
+    echo "Ambiguous make target; possible targets:"
+    for target in ${targets[@]}; do
+        echo " - $target"
+    done
+    echo
+    echo "Usage: $(basename $0) [make_target]"
+    exit 1
+else
+    ninja -j1000 -C $1
+fi
