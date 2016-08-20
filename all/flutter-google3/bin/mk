@@ -1,0 +1,8 @@
+#!/bin/bash
+
+. $PROJ_BASE/etc/init.sh || exit $?
+
+blaze build \
+      --ios_cpu=arm64 \
+      --ios_sdk_version=9.3 \
+      dart/flutter/samples/gallery/ios:Gallery

@@ -1,0 +1,6 @@
+#!/bin/bash
+
+. $PROJ_BASE/etc/init.sh || exit $?
+
+ios-deploy \
+    -b bazel-bin/dart/flutter/samples/gallery/ios/Gallery.ipa
