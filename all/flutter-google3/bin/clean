@@ -1,0 +1,5 @@
+#!/bin/bash
+
+. $PROJ_BASE/etc/init.sh || exit $?
+
+blaze clean
