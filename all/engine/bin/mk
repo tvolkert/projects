@@ -8,9 +8,11 @@ target_count=${#targets[@]}
 
 [[ $target_count -eq 0 ]] && die "No make targets (out/*) found"
 
+threads=1000
+
 if [[ $target_count -eq 1 ]]; then
     # No need for the user to specify target
-    ninja -j1024 -C ${targets[0]}
+    target=${targets[0]}
 elif [[ $# -eq 0 ]]; then
     echo
     echo "Ambiguous make target; possible targets:"
@@ -21,5 +23,7 @@ elif [[ $# -eq 0 ]]; then
     echo "Usage: $(basename $0) [make_target]"
     exit 1
 else
-    ninja -j1000 -C $1
+    target=$1
 fi
+
+ninja -j$threads -C $target
