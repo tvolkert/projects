@@ -10,20 +10,25 @@ target_count=${#targets[@]}
 
 threads=1000
 
-if [[ $target_count -eq 1 ]]; then
-    # No need for the user to specify target
-    target=${targets[0]}
-elif [[ $# -eq 0 ]]; then
-    echo
-    echo "Ambiguous make target; possible targets:"
-    for target in ${targets[@]}; do
-        echo " - $target"
-    done
-    echo
-    echo "Usage: $(basename $0) [make_target]"
-    exit 1
+if [[ $# -gt 0 ]]; then
+    if [[ "$1" == "list" ]]; then
+        # List all possible targets
+        echo
+        for target in ${targets[@]}; do
+            echo "$target"
+        done
+        echo
+    else
+        # Build just the specified target
+        target=$1
+        ninja -j$threads -C $target
+    fi
 else
-    target=$1
+    # Build all targets
+    for target in ${targets[@]}; do
+        echo
+        echo -e "\x1B[92mBuilding '$target'\x1B[0m"
+        echo "Building $target"
+        ninja -j$threads -C $target
+    done
 fi
-
-ninja -j$threads -C $target
