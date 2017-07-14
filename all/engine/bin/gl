@@ -2,9 +2,31 @@
 
 . $PROJ_BASE/etc/init.sh || exit $?
 
-git pull upstream master &&
-    git clean -fdx &&
-    cd .. &&
-    gclient recurse git clean -fdx &&
+temp_dir=$(mktemp -d)
+flutter_dir=$(pwd)
+buildroot_dir=$(dirname $flutter_dir)
+gclient_dir=$(dirname $buildroot_dir)
+
+# Clean buildroot
+cd $gclient_dir &&
+    echo "******************** Backing up Flutter" &&
+    mv $buildroot_dir/flutter $temp_dir &&
+
+    echo "******************** Cleaning all repositories" &&
+    gclient recurse -i git clean -ffdx &&
+
+    echo "******************** Restoring Flutter" &&
+    mv $temp_dir/flutter $buildroot_dir &&
+    rmdir $temp_dir &&
+
+    echo "******************** Running gclient sync" &&
     gclient sync &&
-    ./tools/android/download_android_tools.py
+
+    echo "******************** Downloading Android tools" &&
+    cd $buildroot_dir &&
+    ./tools/android/download_android_tools.py &&
+
+    echo "******************** Syncing Flutter" &&
+    cd $flutter_dir &&
+    git clean -ffdx &&
+    git pull upstream master
