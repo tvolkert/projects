@@ -15,8 +15,12 @@ cd $gclient_dir &&
     echo "******************** Cleaning all repositories" &&
     gclient recurse -i git clean -ffdx &&
 
+    echo "******************** Explicitly cleaning buildroot" &&
+    cd $buildroot_dir &&
+    git clean -ffdx &&
+
     echo "******************** Restoring Flutter" &&
-    mv $temp_dir/flutter $buildroot_dir &&
+    mv $temp_dir/flutter . &&
     rmdir $temp_dir &&
 
     echo "******************** Running gclient sync" &&
@@ -29,4 +33,4 @@ cd $gclient_dir &&
     echo "******************** Syncing Flutter" &&
     cd $flutter_dir &&
     git clean -ffdx &&
-    git pull upstream master
+    git pull upstream master --rebase
