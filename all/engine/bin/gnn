@@ -19,14 +19,22 @@ read -p "Device {ios,android,host} [ios]? " device
 device=${device:-ios}
 if [ "$device" == "ios" ]; then
     cmd="$cmd --target-os ios --ios"
+
+    read -p "Simulator {y/n} [n]? " simulator
+    simulator=${simulator:-n}
+    if [[ "$simulator" == "y" ]]; then
+        cmd="$cmd --simulator"
+    fi
 elif [ "$device" == "android" ]; then
     cmd="$cmd --target-os android --android"
-fi
 
-read -p "Simulator {y/n} [n]? " simulator
-simulator=${simulator:-n}
-if [[ "$device" == "ios" ]] && [[ "$simulator" == "y" ]]; then
-    cmd="$cmd --simulator"
+    read -p "Architecture {arm,x86,x64} [arm]: " arch
+    arch=${arch:-arm}
+    if [[ "$arch" == "x86" ]]; then
+        cmd="$cmd --android-cpu=x86"
+    elif [[ "$arch" == "x64" ]]; then
+        cmd="$cmd --android-cpu=x64"
+    fi
 fi
 
 echo "$cmd"
