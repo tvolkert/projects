@@ -25,7 +25,7 @@ fi
 
 read -p "Simulator {y/n} [n]? " simulator
 simulator=${simulator:-n}
-if [ "$simulator" == "y" ]; then
+if [[ "$device" == "ios" ]] && [[ "$simulator" == "y" ]]; then
     cmd="$cmd --simulator"
 fi
 
