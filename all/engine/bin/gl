@@ -23,14 +23,14 @@ cd $gclient_dir &&
     mv $temp_dir/flutter . &&
     rmdir $temp_dir &&
 
+    echo "******************** Syncing Flutter" &&
+    cd $flutter_dir &&
+    git clean -ffdx &&
+    git pull upstream master --rebase &&
+
     echo "******************** Running gclient sync" &&
     gclient sync &&
 
     echo "******************** Downloading Android tools" &&
     cd $buildroot_dir &&
-    ./tools/android/download_android_tools.py &&
-
-    echo "******************** Syncing Flutter" &&
-    cd $flutter_dir &&
-    git clean -ffdx &&
-    git pull upstream master --rebase
+    ./tools/android/download_android_tools.py
