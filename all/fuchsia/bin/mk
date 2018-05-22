@@ -1,0 +1,6 @@
+#!/bin/bash
+
+. $PROJ_BASE/etc/init.sh || exit $?
+
+fx set x64
+fx full-build
