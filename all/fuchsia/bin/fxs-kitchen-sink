@@ -1,0 +1,5 @@
+#!/bin/bash
+
+. $PROJ_BASE/etc/init.sh || exit $?
+
+fx set x64 --packages topaz/packages/kitchen_sink

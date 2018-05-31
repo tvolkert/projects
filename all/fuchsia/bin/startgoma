@@ -1,3 +1,5 @@
 #!/bin/bash
 
+export GOMA_FAIL_FOR_UNSUPPORTED_COMPILER_FLAGS=false
+
 ~/project/goma/goma_ctl.py ensure_start
