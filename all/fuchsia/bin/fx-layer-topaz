@@ -1,0 +1,8 @@
+#!/bin/bash
+
+. $PROJ_BASE/etc/init.sh || exit $?
+
+SOURCE_MANIFEST=$PROJ_BASE/all/$CURRENT/etc/.jiri_manifest.topaz
+DEST_MANIFEST=$PWD/.jiri_manifest
+
+cp $SOURCE_MANIFEST $DEST_MANIFEST

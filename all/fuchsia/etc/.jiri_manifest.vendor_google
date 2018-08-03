@@ -1,0 +1,5 @@
+<manifest>
+  <imports>
+    <import manifest="manifest/google" name="vendor/google" remote="sso://turquoise-internal/vendor/google"/>
+  </imports>
+</manifest>

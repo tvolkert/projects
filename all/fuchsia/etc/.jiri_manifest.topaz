@@ -1,0 +1,5 @@
+<manifest>
+  <imports>
+    <import manifest="manifest/topaz" name="topaz" remote="https://fuchsia.googlesource.com/topaz"/>
+  </imports>
+</manifest>
