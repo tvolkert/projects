@@ -2,4 +2,4 @@
 
 . $PROJ_BASE/etc/init.sh || exit $?
 
-fx full-build
+fx shell runtests

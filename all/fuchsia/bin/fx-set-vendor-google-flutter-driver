@@ -1,0 +1,7 @@
+#!/bin/bash
+
+. $PROJ_BASE/etc/init.sh || exit $?
+
+fx set x64 \
+  --packages vendor/google/packages/default \
+  --packages vendor/google/packages/flutter_driver_test

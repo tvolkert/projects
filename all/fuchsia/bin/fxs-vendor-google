@@ -1,5 +1,0 @@
-#!/bin/bash
-
-. $PROJ_BASE/etc/init.sh || exit $?
-
-fx set x64 --packages vendor/google/packages/default,topaz/packages/default
