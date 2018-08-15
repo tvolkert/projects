@@ -1,5 +1,3 @@
 #!/bin/bash
 
-. $PROJ_BASE/etc/init.sh || exit $?
-
 git push origin HEAD:refs/for/master
