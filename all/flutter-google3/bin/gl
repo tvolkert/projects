@@ -1,5 +1,0 @@
-#!/bin/bash
-
-. $PROJ_BASE/etc/init.sh || exit $?
-
-g5 sync
