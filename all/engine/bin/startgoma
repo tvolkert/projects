@@ -1,3 +1,33 @@
 #!/bin/bash
 
-~/project/goma/goma_ctl.py ensure_start
+##~/project/depot_tools/goma_ctl ensure_start
+
+set -x
+
+# Customize this to where you would like Goma to be installed.
+export GOMA_DIR="$HOME/bin/flutter_goma"
+
+# Download client. Assumes cipd from depot_tools is on path.
+if [[ "$(uname)" == "Darwin" && "$(uname -m)" == "arm64" ]]
+then
+  # NOTE: There is no arm64 Mac distribution of Goma, so we need to
+  #       explicitly use the `mac-amd64` package instead of
+  #       `${platform}` if running an Apple Silicon Mac.
+  echo 'fuchsia/third_party/goma/client/mac-amd64  integration' | cipd ensure -ensure-file - -root "$GOMA_DIR"
+else
+  echo 'fuchsia/third_party/goma/client/${platform}  integration' | cipd ensure -ensure-file - -root "$GOMA_DIR"
+fi
+
+# Kill Goma if it's currently running.
+killall compiler_proxy
+
+# Authenticate
+"$GOMA_DIR/goma_auth" login
+
+# Start Goma
+GOMA_LOCAL_OUTPUT_CACHE_DIR="$GOMA_DIR/.goma_cache" "$GOMA_DIR/goma_ctl.py" ensure_start
+
+# On macOS, have the build access xcode through symlinks in the build root. Required for goma builds to work.
+if [[ "$(uname)" == "Darwin" ]]
+  then export FLUTTER_GOMA_CREATE_XCODE_SYMLINKS=1
+fi

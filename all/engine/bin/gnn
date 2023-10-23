@@ -2,7 +2,10 @@
 
 . $PROJ_BASE/etc/init.sh || exit $?
 
-cmd="./tools/gn --goma"
+## Keep in sync with value in `startgoma`
+export GOMA_DIR="$HOME/bin/flutter_goma"
+
+cmd="./tools/gn --goma --no-lto"
 
 read -p "Unoptimized {y/n} [y]? " unoptimized
 unoptimized=${unoptimized:-y}
@@ -15,7 +18,7 @@ runtime_mode=${runtime_mode:-debug}
 [[ "$runtime_mode" =~ ^(debug|profile|release)$ ]] || die "invalid runtime mode: $runtime_mode"
 cmd="$cmd --runtime-mode $runtime_mode"
 
-read -p "Device {ios,android,host} [ios]? " device
+read -p "Device {ios,android,host,web} [ios]? " device
 device=${device:-ios}
 if [ "$device" == "ios" ]; then
     cmd="$cmd --target-os ios --ios"
@@ -35,6 +38,8 @@ elif [ "$device" == "android" ]; then
     elif [[ "$arch" == "x64" ]]; then
         cmd="$cmd --android-cpu=x64"
     fi
+elif [ "$device" == "web" ]; then
+    cmd="$cmd --web"
 fi
 
 echo "$cmd"

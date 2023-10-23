@@ -8,7 +8,7 @@ target_count=${#targets[@]}
 
 [[ $target_count -eq 0 ]] && die "No make targets (out/*) found"
 
-threads=1000
+threads=64
 
 if [[ $# -gt 0 ]]; then
     if [[ "$1" == "list" ]]; then
